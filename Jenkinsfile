@@ -44,7 +44,7 @@ pipeline{
 
 
             steps{
-                withCredentials([usernamePassword(credentialsId:'docker-repo',usernameVariable:'user',passwordVariable:'pass')]){
+                withCredentials([usernamePassword(credentialsId:'docker-hub',usernameVariable:'user',passwordVariable:'pass')]){
 
                     sh ' docker login -u $user -p $pass'
 

@@ -45,8 +45,8 @@ pipeline{
 
             steps{
                 withCredentials([usernamePassword(credentialsId:'ChatBot',usernameVariable:'user',passwordVariable:'pass')]){
-
-                   sh "docker login -u \$user -p \$pass"
+	      sh "echo \$pass | docker login -u \$user --password-stdin"
+                
 
 
                 }

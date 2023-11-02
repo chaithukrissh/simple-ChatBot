@@ -12,7 +12,7 @@ pipeline{
         stage("Docker Build"){
             steps{
                 echo "this stage is for building the docker image"
-                sh " docker build -t ChatBot:1.0 ."
+                sh " docker build -t chatbot:1.0 ."
             }
 
 
@@ -46,8 +46,8 @@ steps{
 
         steps{
 
-                sh " docker tag ChatBot:1.0 chaithukrissh/ChatBot:1.0"
-                sh " docker push  chaithukrissh/ChatBot:1.0 "
+                sh " docker tag chatbot:1.0 chaithukrissh/chatbot:1.0"
+                sh " docker push  chaithukrissh/chatbot:1.0 "
     }
         }
     }

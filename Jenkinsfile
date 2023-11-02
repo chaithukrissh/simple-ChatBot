@@ -8,16 +8,33 @@ pipeline{
 
     }
 
-    stages{
-        stage("Docker Build"){
-            steps{
-                echo "this stage is for building the docker image"
-                sh " docker build -t chatbot:2.0 ."
-            }
+    environment {
+        // Define the version number using the Jenkins BUILD_NUMBER
+        VERSION = "${BUILD_NUMBER}"
+        IMAGE_NAME="chatbot"
+        DOCKER_IMAGE_TAG = "${IMAGE_NAME}:${VERSION}"
+        DOCKER_HUB_REPO = "chaithukrissh/chatbot"
+        DOCKER_HUB_TAG = "${DOCKER_HUB_REPO}:${VERSION}"
+    }
 
+    stages {
+        stage('Prepare Dockerfile') {
+            steps {
+                script {
+                    // Define the placeholder in the Dockerfile
+                    def placeholder = "##VERSION_PLACEHOLDER##"
 
-                
+                    // Read the Dockerfile content
+                    def dockerfileContent = readFile("Dockerfile")
+
+                    // Replace the placeholder with the version number
+                    def updatedDockerfileContent = dockerfileContent.replaceAll(placeholder, VERSION)
+
+                    // Write the updated content back to the Dockerfile
+                    writeFile(file: "Dockerfile", text: updatedDockerfileContent)
+                }
             }
+        }
         
 
         stage("docker login"){
@@ -45,9 +62,9 @@ steps{
         stage("Image push to Docker hub "){
 
         steps{
-
-                sh " docker tag chatbot:2.0 chaithukrissh/chatbot:2.0"
-                sh " docker push  chaithukrissh/chatbot:2.0 "
+                sh "docker build -t ${DOCKER_IMAGE_TAG} ."
+                sh " docker tag ${DOCKER_IMAGE_TAG} ${DOCKER_HUB_TAG}"
+                sh " docker push  ${DOCKER_HUB_TAG} "
     }
         }
     }

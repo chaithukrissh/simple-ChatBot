@@ -12,7 +12,7 @@ pipeline{
         stage("Docker Build"){
             steps{
                 echo "this stage is for building the docker image"
-                sh " docker build -t chatbot:1.0 ."
+                sh " docker build -t chatbot:2.0 ."
             }
 
 

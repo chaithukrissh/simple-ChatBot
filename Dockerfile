@@ -1,5 +1,6 @@
+ARG VERSION
 FROM python:3.8
-
+LABEL version=$VERSION
 WORKDIR /app
 COPY . /app/
 

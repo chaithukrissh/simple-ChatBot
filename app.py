@@ -6,7 +6,7 @@ import os
 load_dotenv()
 api_key1=os.getenv("API_KEY")
 palm.configure(api_key=api_key1)
-#palm.configure(api_key='AIzaSyDZe0qqwAM_fBlMmsYrqd0qz4J7KdMAyKw')
+
 
 #models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
 #model = models[0].name

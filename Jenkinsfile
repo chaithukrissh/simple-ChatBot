@@ -66,4 +66,3 @@ steps{
                 sh " docker tag ChatBot:1.0 chaithukrissh/ChatBot:1.0"
                 sh " docker push  chaithukrissh/ChatBot:1.0 "
 }}
-}

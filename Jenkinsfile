@@ -9,32 +9,27 @@ pipeline{
     }
 
     stages{
-        stage("A"){
+        stage("Docker Build"){
             steps{
-                echo "this is printing A"
+                echo "this stage is for building the docker image"
+		sh " docker build -t ChatBot:1.0 ."
             }
 
-            post{
-                always{
-
-                    echo "completed successfully"
-
-                }
 
                 success{
 
-                    echo "this will print when it is success"
+                    echo "image build successfully completed ....."
 
                 }
                 failure{
 
-                    echo "this will print when it is failure"
+                    echo "There is an error building the docker image .. please check it .."
 
                 }
             }
         }
 
-        stage("docker"){
+        stage("docker login"){
 
             when{
                 expression{
@@ -42,10 +37,13 @@ pipeline{
                 }
             }
 
+steps{
+                withCredentials([usernamePassword(credentialsId:'ChatBot' , usernameVariable:'user' , passwordVariable:'pass')]){
+                         sh " docker login -u $user -p $pass "
+                
 
-            steps{
-                withCredentials([usernamePassword(credentialsId:'ChatBot',usernameVariable:'user',passwordVariable:'pass')]){
-	      sh "echo \$pass | docker login -u \$user --password-stdin"
+
+                }
                 
 
 
@@ -55,14 +53,18 @@ pipeline{
     }
 
     post{
-        always{
-            echo "====++++always++++===="
-        }
         success{
-            echo "====++++only when successful++++===="
+            echo "====++++Docker login successfull .. ++++===="
         }
         failure{
-            echo "====++++only when failed++++===="
+            echo "====++++Docker login Failure .. please Check your credentials ...===="
         }
     }
+	stage("Image push to Docker hub "){
+
+steps{
+
+		sh " docker tag ChatBot:1.0 chaithukrissh/ChatBot:1.0"
+		sh " docker push  chaithukrissh/ChatBot:1.0 "
+}}
 }

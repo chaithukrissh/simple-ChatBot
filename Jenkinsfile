@@ -18,7 +18,7 @@ pipeline{
 
                 
             }
-        }
+        
 
         stage("docker login"){
 
@@ -50,4 +50,5 @@ steps{
                 sh " docker push  chaithukrissh/ChatBot:1.0 "
     }
         }
+    }
 }

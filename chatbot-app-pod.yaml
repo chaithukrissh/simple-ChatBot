@@ -1,0 +1,14 @@
+apiVersion: v1
+
+kind: Pod
+
+metadata:
+  name: chatbot-app
+  labels:
+    app: chatbot-app
+
+spec:
+  containers:
+    - name: con1
+      image: chaithukrissh/chatbot:1.0
+

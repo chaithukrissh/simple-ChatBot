@@ -46,8 +46,8 @@ steps{
 
         steps{
 
-                sh " docker tag chatbot:1.0 chaithukrissh/chatbot:1.0"
-                sh " docker push  chaithukrissh/chatbot:1.0 "
+                sh " docker tag chatbot:2.0 chaithukrissh/chatbot:2.0"
+                sh " docker push  chaithukrissh/chatbot:2.0 "
     }
         }
     }

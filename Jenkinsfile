@@ -50,7 +50,6 @@ steps{
                 }
             }
         }
-    }
 
     post{
         success{

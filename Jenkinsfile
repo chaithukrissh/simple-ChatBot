@@ -16,16 +16,7 @@ pipeline{
             }
 
 
-                success{
-
-                    echo "image build successfully completed ....."
-
-                }
-                failure{
-
-                    echo "There is an error building the docker image .. please check it .."
-
-                }
+                
             }
         }
 
@@ -49,20 +40,14 @@ steps{
 
                 }
             }
-        }
 
-    post{
-        success{
-            echo "====++++Docker login successfull .. ++++===="
-        }
-        failure{
-            echo "====++++Docker login Failure .. please Check your credentials ...===="
-        }
-    }
+    
         stage("Image push to Docker hub "){
 
-steps{
+        steps{
 
                 sh " docker tag ChatBot:1.0 chaithukrissh/ChatBot:1.0"
                 sh " docker push  chaithukrissh/ChatBot:1.0 "
-}}
+    }
+        }
+}
